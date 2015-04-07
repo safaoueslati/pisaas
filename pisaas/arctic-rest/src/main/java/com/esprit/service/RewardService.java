@@ -3,6 +3,7 @@ package com.esprit.service;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -34,30 +35,35 @@ public class RewardService {
 	@GET
 	@Path("/{Id_rew}")   
 	@Produces(MediaType.APPLICATION_JSON)
-public String getrewardById(@PathParam("Id_rew") String a){
+	public String GetRewardById(@PathParam("Id_rew") String a){
 		
-	//return httpCylient.GET("http://clouddevprojectwebapi2015.azurewebsites.net/api/User/"+id);
-	return httpClient.GET("http://recrut.azurewebsites.net/api/Reward/"+a);
+		return httpClient.GET("http://recrut.azurewebsites.net/api/Reward/"+a);
 	}
-	
 	
 	@POST
 	@Path("/CreateReward")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void CreateReward(String rewardJson){
-		System.out.println(rewardJson);
+	public void CreateReward(String RewardJson){
+		System.out.println(RewardJson);
 		System.out.println("************************************");
-		httpClient.POST("http://recrut.azurewebsites.net/api/Reward",rewardJson);
+		httpClient.POST("http://recrut.azurewebsites.net/api/Reward",RewardJson);
 	}
+	
+	@DELETE
+	@Path("/{Id_rew}")
+	public String suppReward(@PathParam("Id_rew") String a){
 		
+		return httpClient.DELETE("http://recrut.azurewebsites.net/api/Reward/"+a);
+	}
+	
 	@PUT
 	@Path("/{Id_rew}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean UpdateReward(@PathParam("Id_rew") String a, String b)
+	public String UpdateReward(@PathParam("Id_rew") Integer a, String b)
 	{
-		 httpClient.PUT("http://recrut.azurewebsites.net/api/Reward/"+a,b);
-		 return true;
+		return httpClient.PUT("http://recrut.azurewebsites.net/api/Reward/"+a,b);
 	}
+	
 	
 }
 

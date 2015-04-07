@@ -4,6 +4,7 @@ package com.esprit.service;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -30,17 +31,13 @@ public class NotificationService {
 		return httpClient.GET("http://recrut.azurewebsites.net/api/Notification");
 	
 	}
+	
 	@GET
 	@Path("/{IdNot}")   
 	@Produces(MediaType.APPLICATION_JSON)
-public String getNotifById(@PathParam("IdNot") int a){
+	public String GetNotificationById(@PathParam("IdNot") String a){
 		
-	Gson gson = new GsonBuilder().create();
-	//return httpCylient.GET("http://clouddevprojectwebapi2015.azurewebsites.net/api/User/"+id);
-	String cat = gson.fromJson(httpClient.GET("http://recrut.azurewebsites.net/api/Notification/"+a), String.class);
-
-    String json = gson.toJson(cat);
-	return json;
+		return httpClient.GET("http://recrut.azurewebsites.net/api/Notification/"+a);
 	}
 	
 	@POST
@@ -51,13 +48,21 @@ public String getNotifById(@PathParam("IdNot") int a){
 		System.out.println("************************************");
 		httpClient.POST("http://recrut.azurewebsites.net/api/Notification",NotificationJson);
 	}
+	
+	@DELETE
+	@Path("/{IdNot}")
+	public String suppNotification(@PathParam("IdNot") String a){
+		
+		return httpClient.DELETE("http://recrut.azurewebsites.net/api/Notification/"+a);
+	}
+	
 	@PUT
 	@Path("/{IdNot}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String UpdateReward(@PathParam("IdNot") String a, String b)
+	public String UpdateNotification(@PathParam("IdNot") Integer a, String b)
 	{
-		  httpClient.PUT("http://recrut.azurewebsites.net/api/Notification/"+a,b);
-		  return b;
+		return httpClient.PUT("http://recrut.azurewebsites.net/api/Notification/"+a,b);
 	}
+	
 }
 

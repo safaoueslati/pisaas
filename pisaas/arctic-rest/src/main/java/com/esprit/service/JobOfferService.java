@@ -30,6 +30,13 @@ public class JobOfferService {
 	
 	}
 	
+	@GET
+	@Path("/{IdJob}")   
+	@Produces(MediaType.APPLICATION_JSON)
+	public String GetCandidateById(@PathParam("IdJob") String a){
+		
+		return httpClient.GET("http://recrut.azurewebsites.net/api/JobOffer/"+a);
+	}
 	
 	@POST
 	@Path("/CreateJobOffer")
@@ -42,7 +49,7 @@ public class JobOfferService {
 	
 	@DELETE
 	@Path("/{IdJob}")
-	public String supprimer(@PathParam("IdJob") String a){
+	public String suppJobOffer(@PathParam("IdJob") String a){
 		
 		return httpClient.DELETE("http://recrut.azurewebsites.net/api/JobOffer/"+a);
 	}
@@ -50,7 +57,7 @@ public class JobOfferService {
 	@PUT
 	@Path("/{IdJob}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void UpdateReward(@PathParam("IdJob") Integer a, String b)
+	public void UpdateJobOffer(@PathParam("IdJob") Integer a, String b)
 	{
 		 httpClient.PUT("http://recrut.azurewebsites.net/api/JobOffer/"+a,b);
 	}

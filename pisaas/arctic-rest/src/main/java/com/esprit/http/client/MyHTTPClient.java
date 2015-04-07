@@ -100,33 +100,37 @@ public class MyHTTPClient {
 		return "error";
 	}
 	
-	public String PUT(String url, String params) {
-
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		try {
-			HttpPut putRequest = new HttpPut(url);
-			StringEntity input = new StringEntity(params);
-			putRequest.setEntity(input);
-
-			HttpResponse response = httpClient.execute(putRequest);
-			if (response.getStatusLine().getStatusCode() != 201) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ response.getStatusLine().getStatusCode());
-			}
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(response.getEntity().getContent())));
-			String result = "";
-			String output;
-			while ((output = br.readLine()) != null) {
-				result += output;
-			}
-			return result;
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "error";
+	public String PUT(String url,String params){
+		
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        try {
+            HttpPut putRequest = new HttpPut(url);
+            StringEntity input =new StringEntity(params);
+            input.setContentType(MediaType.APPLICATION_JSON);
+            putRequest.setEntity(input);
+           
+            
+          
+            HttpResponse response = httpClient.execute(putRequest);
+                
+            if (response.getStatusLine().getStatusCode() != 201) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatusLine().getStatusCode());
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (response.getEntity().getContent())));
+        String result="";
+        String output;
+        while ((output = br.readLine()) != null) {
+            result+=output;
+        }
+        return result;
+    } catch (ClientProtocolException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return "error";
 	}
 
 	public String DELETE(String url) {
